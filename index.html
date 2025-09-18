@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Caffeine & Sugar Tracker ☕🍬</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Rubik Puddles', cursive;
+      background: linear-gradient(to right, #fdf6e3, #ffe6e6);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #ff7b7b;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 30px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px #00000050;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    h2 {
+      color: #ff4d6d;
+      border-bottom: 2px dashed #ffc2c2;
+      padding-bottom: 5px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input {
+      width: 80px;
+      padding: 6px;
+      margin-left: 10px;
+      border: 2px solid #ffabab;
+      border-radius: 8px;
+      font-family: inherit;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #ff4d6d;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #e60039;
+    }
+    .output {
+      margin-top: 20px;
+      background: #fff0f5;
+      padding: 15px;
+      border-radius: 12px;
+    }
+    .bar {
+      width: 100%;
+      height: 20px;
+      background: #eee;
+      border-radius: 10px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .fill {
+      height: 100%;
+      background: #ff4d6d;
+      width: 0%;
+      text-align: center;
+      color: white;
+      font-size: 12px;
+      line-height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>Caffeine & Sugar Tracker ☕🍬</header>
+  <div class="container">
+    <h2>Enter Your Name</h2>
+    <label>Name: <input type="text" id="userName"></label>
+
+    <h2>Choose Your Coffee</h2>
+    <p>Enter how many cups you had today:</p>
+
+    <label>☕ Cappuccino (~80mg each): 
+      <input type="number" id="cappuccino" min="0" value="0">
+    </label>
+    <label>🥛 Latte (~100mg each): 
+      <input type="number" id="latte" min="0" value="0">
+    </label>
+    <label>⚡ Espresso (~120mg each): 
+      <input type="number" id="espresso" min="0" value="0">
+    </label>
+    <label>🧋 Iced Coffee (~150mg each): 
+      <input type="number" id="icedCoffee" min="0" value="0">
+    </label>
+    <label>🍵 Green Tea (~40mg each): 
+      <input type="number" id="greenTea" min="0" value="0">
+    </label>
+
+    <h2>By Spoon</h2>
+    <label>🥄 Coffee Powder Spoons (≈ 60mg each): 
+      <input type="number" id="coffeeSpoons" min="0" value="0">
+    </label>
+    <label>🍬 Sugar Spoons (≈ 12g each): 
+      <input type="number" id="sugarSpoons" min="0" value="0">
+    </label>
+
+    <button onclick="track()">Track 🚀</button>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function track() {
+      const name = document.getElementById("userName").value || "Friend";
+
+      // Coffee caffeine mg
+      const cappuccino = Number(document.getElementById("cappuccino").value) * 80;
+      const latte = Number(document.getElementById("latte").value) * 100;
+      const espresso = Number(document.getElementById("espresso").value) * 120;
+      const icedCoffee = Number(document.getElementById("icedCoffee").value) * 150;
+      const greenTea = Number(document.getElementById("greenTea").value) * 40;
+      const coffeeSpoons = Number(document.getElementById("coffeeSpoons").value) * 60;
+
+      // Sugar grams
+      const sugarSpoons = Number(document.getElementById("sugarSpoons").value) * 12;
+
+      let caffeineTotal = cappuccino + latte + espresso + icedCoffee + greenTea + coffeeSpoons;
+
+      // Emoji scale for caffeine
+      let caffeineEmoji = "😀 Small sip";
+      if (caffeineTotal > 50) caffeineEmoji = "😁 Lower Medium";
+      if (caffeineTotal > 150) caffeineEmoji = "😵‍💫 Medium Buzz";
+      if (caffeineTotal > 300) caffeineEmoji = "😏 Upper Medium Energy";
+      if (caffeineTotal > 450) caffeineEmoji = "😬😬😵‍💫 Hyper Overdose!";
+
+      // Fun caffeine message
+      let caffeineMessage = "Nice and chill. 🛋️";
+      if (caffeineTotal > 150) caffeineMessage = "Heart racing... 🏃💨";
+      if (caffeineTotal > 300) caffeineMessage = "You might start speaking faster than Eminem 🎤⚡";
+      if (caffeineTotal > 450) caffeineMessage = "Call NASA, you're basically a rocket 🚀👽";
+
+      // Sugar fun message
+      let sugarMessage = "";
+      if (sugarSpoons > 0) {
+        sugarMessage = `<p>🍬 Sugar Intake: <strong>${sugarSpoons} g</strong></p>`;
+        if (sugarSpoons > 24) sugarMessage += `<p>😈 Too much sugar, ${name}! Very close to diabetes...</p>`;
+        else sugarMessage += `<p>Sweet tooth but still safe 🍭</p>`;
+      }
+
+      // Progress bar
+      let percent = Math.min((caffeineTotal / 400) * 100, 100);
+
+      let result = `<h3>Welcome, ${name} 👋</h3>`;
+      result += `<p>Total Caffeine: <strong>${caffeineTotal} mg</strong></p>`;
+      result += `<p>Status: ${caffeineEmoji}</p>`;
+      result += `<p>${caffeineMessage}</p>`;
+      result += `
+        <div class="bar">
+          <div class="fill" style="width:${percent}%;">${Math.round(percent)}%</div>
+        </div>
+      `;
+      result += sugarMessage;
+
+      if (caffeineTotal > 400) {
+        result += `<p style="color:red;"><strong>⚠️ Too much caffeine! Stay under 400mg/day.</strong></p>`;
+      } else {
+        result += `<p style="color:green;">✅ Within safe caffeine limits.</p>`;
+      }
+
+      document.getElementById("output").innerHTML = result;
+    }
+  </script>
+</body>
+</html>
+<link rel="stylesheet" href="style.css">
