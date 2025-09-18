@@ -1,0 +1,54 @@
+body {
+  font-family: 'Baloo 2', cursive, sans-serif;
+  background: linear-gradient(135deg, #fffaf2, #f5deb3); /* cream to light brown */
+  color: #3e2c1c; /* coffee brown text */
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #4b2e2e; /* dark coffee */
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+label {
+  font-size: 1.2em;
+  margin-right: 8px;
+  color: #3e2c1c; /* warm brown */
+}
+
+input, select {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 2px solid #d2b48c; /* tan border */
+  font-size: 1em;
+  background: #fffaf2; /* cream input background */
+  color: #3e2c1c; /* coffee brown text */
+}
+
+button {
+  background-color: #d2691e; /* caramel brown */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: 0.3s;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+}
+
+button:hover {
+  background-color: #b85c16; /* darker caramel */
+  transform: scale(1.05);
+}
+
+#result {
+  font-size: 1.3em;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #4b2e2e; /* dark coffee */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
